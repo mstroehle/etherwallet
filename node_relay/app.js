@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var https = require('https');
 var app = express();
+var PaperGen = require('./paper.js');
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -21,11 +22,11 @@ if (typeof web3 !== "undefined") {
   web3 = new Web3(web3.currentProvider);
 } else {
   web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-  //web3 = new Web3(new Web3.providers.HttpProvider("http://52.206.67.235:8545"));
 }
+
 if (web3.isConnected()) 
   console.log("Web3 connection established");
-else
+else if ('test' !== app.get('env'))
   throw "No connection";
 
 app.get('/api', function(req, res) {
@@ -66,6 +67,8 @@ app.post('/api', function(req, res) {
     res.status(400).send();
   }
 });
+
+app.get('/paper', PaperGen);
 
 function getBalance(addr, gethRPC) {
   var data = getDefaultResponse();
