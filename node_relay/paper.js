@@ -9,7 +9,7 @@ module.exports = function(req, res){
   var email = req.query.email;
   var address = req.query.address;
 
-  var protocols = JSON.parse(req.query.protocols);
+  var protocols = JSON.parse(req.query.protocols || {});
   protocols = Object.keys(protocols).filter(function(p) { return protocols[p]; })
   var title = getTitle(protocols)
   var subtitle = "";
