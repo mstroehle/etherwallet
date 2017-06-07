@@ -31,7 +31,8 @@ module.exports = function(req, res){
   doc.font('Times-Roman', 14).text(subtitle, {align:"center"});
   if (address !== "") {
     address = "https://classicetherwallet.com/#buy-ico?owner=" + address;
-    doc.text("Crowdsale Address: ")
+    doc.moveDown().font('Times-Roman', 12)
+        .text("Crowdsale Address: ",  {align:"center"})
         .text(address, {link: address, underline:true, align: "center"});
   }
   doc.moveDown();
